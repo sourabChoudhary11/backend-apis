@@ -7,6 +7,14 @@ import cors from "cors"
 
 export const app = express();
 
+app.use(cors({
+    origin: process.env.FRONTED_URI,
+    methods: "PUT, DELETE, GET, POST",
+    incredentials: true,
+    preflightContinue:false,
+    optionSuccessStatus: 204
+}))
+
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser());
 app.use(express.json());
@@ -17,11 +25,6 @@ app.get("/", (req,res)=>{
     res.send("Home of our app")
 })
 
-app.use(cors({
-    origin: [process.env.FRONTED_URI],
-    methods: ["PUT", "DELETE", "GET", "POST"],
-    credentials: true
-}))
 app.use(errorMiddleware)
 
 
