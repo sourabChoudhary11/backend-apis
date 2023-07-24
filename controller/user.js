@@ -22,10 +22,10 @@ export const login = async (req, res, next) => {
         const { email, password } = req.body;
         console.log(req.body);
         const emailMatch = await user.findOne({ email }).select("+password");
-        if (!emailMatch) return next(new errorHandler("invalid login or password", 400));
+        if (!emailMatch) return next(new errorHandler("Invalid email or password", 400));
         const comparePassword = await bcrypt.compare(password, emailMatch.password);
 
-        if (!comparePassword) return next(new errorHandler("invalid login or password", 404))
+        if (!comparePassword) return next(new errorHandler("Invalid email or password", 404))
         setCookie(`Welcome back, ${emailMatch.name}`, 200, emailMatch, res)
     } catch (error) {
         next(error)
@@ -40,7 +40,7 @@ export const logout = (req, res, next) => {
         expires: new Date(Date.now())
     }).json({
         success: true,
-        message: "logout successfully"
+        message: "Logout Successfully"
     })
 }
 
