@@ -6,7 +6,7 @@ import errorHandler from "../middlewares/error.js";
 
 export const getAllUsers = async (req, res) => {
     try {
-        const users = await user.find({}).select("+password");
+        const users = await user.find({});
 
         res.json({
             status: true,
